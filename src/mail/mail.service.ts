@@ -7,7 +7,7 @@ export class MailService {
     constructor(private mailerService: MailerService) { }
 
     async sendUserConfirmation(user: Users, token: string) {
-        const url = `localhost:3000/user/verify-email?=${user.username}&${token}`;
+        const url = `localhost:3000/user/verify-email/${user.username}/${token}`;
         const plaintext = `Üyeliğinizi doğrulamak için linke tıklayın: ${url}`;
 
         await this.mailerService.sendMail({
