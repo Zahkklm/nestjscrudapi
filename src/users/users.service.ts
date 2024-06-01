@@ -8,6 +8,7 @@ import { randomBytes } from 'crypto';
 import { MailService } from 'src/mail/mail.service';
 import * as bcrypt from 'bcrypt';
 import { HttpErrorByCode } from '@nestjs/common/utils/http-error-by-code.util';
+import { userInfo } from 'os';
 
 @Injectable()
 export class UsersService {
@@ -17,24 +18,12 @@ export class UsersService {
     private readonly mailService: MailService,
   ) { }
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  findAll(): Promise<Users[]> {
+    return this.userRepository.find();
   }
 
-  findAll() {
-    return `This action returns all users`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
-
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  findOne(id: number): Promise<Users | null> {
+    return this.userRepository.findOneBy({id});
   }
 
   async register(createUserDto: CreateUserDto): Promise<Users> { // register function that creates token, saves user and sends confirmation mail
