@@ -8,15 +8,13 @@ export class MailService {
 
     async sendUserConfirmation(users: Users, token: string) {
         const url = `localhost/users/confirm?token=${token}`;
+        const plaintext = `Üyeliğinizi doğrulamak için linke tıklayın: ${url}`;
 
         await this.mailerService.sendMail({
             to: users.email,
             from: '"Beije Üyelik" <ozgurpeynirci@gmail.com>',
             subject: 'Beije\'ye hoşgeldiniz! Üyeliğinizi tamamlamak için onay linkine tıklayın.',
-            context: {
-                name: users.username,
-                url,
-            },
+            text: plaintext,
         });
     }
 }

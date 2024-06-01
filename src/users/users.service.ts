@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { Users } from './entities/user.entity';
 import { randomBytes } from 'crypto';
 import { MailService } from 'src/mail/mail.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -36,7 +37,8 @@ export class UsersService {
   }
 
   async register(createUserDto: CreateUserDto): Promise<Users> { // register function that creates token, saves user and sends confirmation mail
-    const verificationToken = randomBytes(32).toString('hex'); // later change this to bcrypt function
+  //  const verificationToken = randomBytes(32).toString('hex'); // later change this to bcrypt function
+    const verificationToken = await bcrypt.hash(createUserDto.password, 10); // hashing function
     const user = this.userRepository.create({
       ...createUserDto,
       verificationToken,
@@ -53,9 +55,6 @@ export class UsersService {
 
   async verifyEmail(username: string, verificationToken: string): Promise<boolean> { // async verifyEmail service to work when email link is entered
     const user = await this.userRepository.findOne({ where: { username } });
-
-    console.log("sending email to: "); // to see values inside "user"
-    console.log(user); 
 
     if (!user) {
       throw new Error('User not found');
