@@ -1,6 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Users } from './entities/user.entity';
@@ -18,12 +17,13 @@ export class UsersService {
     private readonly mailService: MailService,
   ) { }
 
+
   findAll(): Promise<Users[]> {
     return this.userRepository.find();
   }
 
   findOne(id: string): Promise<Users | null> {
-    return this.userRepository.findOneBy({id});
+    return this.userRepository.findOneBy( {id} );
   }
 
   async register(createUserDto: CreateUserDto): Promise<Users> { // register function that creates token, saves user and sends confirmation mail

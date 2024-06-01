@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { ResponseInterceptor } from 'src/common/response-interceptor';
 
 @UseInterceptors(ResponseInterceptor)
@@ -21,13 +20,18 @@ export class UsersController {
 
 
   @Post('register')
-  async register(@Param('username') username : string, @Param('email') email : string, @Body() user: CreateUserDto) {
+  // For HTTP endpoint: POST /user/register:
+
+  async register(@Param('username') username : string, @Param('email') email : string, @Body() user: CreateUserDto) 
+   {
     const userDetails = await this.usersService.register(user);
     return { message: 'User registered successfully', userId: userDetails.id };
   }
 
 
-  @Get('verify-email/:username/:verificationToken')
+  @Get('verify-email/:username/:verificationToken') 
+  // For HTTP endpoint: GET /user/verify-email/{username}/{verificationToken}
+
   async verifyEmail(
     @Param('username') username: string,
     @Param('verificationToken') verificationToken: string,
@@ -36,7 +40,9 @@ export class UsersController {
     return { message: 'Email verified successfully' };
   }
 
-  @Get('check-verification/:username')
+  @Get('check-verification/:username') 
+  // For HTTP endpoint: GET /user/check-verification/{username}:
+
   async checkVerification(@Param('username') username: string) {
     const isVerified = await this.usersService.checkVerification(username);
     if (isVerified) {
