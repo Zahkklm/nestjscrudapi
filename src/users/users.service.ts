@@ -15,7 +15,7 @@ export class UsersService {
     @InjectRepository(Users)
     private userRepository: Repository<Users>,
     private readonly mailService: MailService,
-  ) {}
+  ) { }
 
   create(createUserDto: CreateUserDto) {
     return 'This action adds a new user';
@@ -38,7 +38,7 @@ export class UsersService {
   }
 
   async register(createUserDto: CreateUserDto): Promise<Users> { // register function that creates token, saves user and sends confirmation mail
-  //  const verificationToken = randomBytes(32).toString('hex'); // later change this to bcrypt function
+    //  const verificationToken = randomBytes(32).toString('hex'); // later change this to bcrypt function
     const verificationToken = await bcrypt.hash(createUserDto.password, 10); // hashing function
     const user = this.userRepository.create({
       ...createUserDto,
@@ -54,27 +54,25 @@ export class UsersService {
     return user;
   }
 
-  async verifyEmail(username: string, verificationToken: string): Promise<boolean> { // async verifyEmail service to work when email link is entered
+  async verifyEmail(username: string, verificationToken: string): Promise<HttpStatus> { // async verifyEmail service to work when email link is entered
     const user = await this.userRepository.findOne({ where: { username } });
 
-    if (!user) { 
-      throw new HttpException("Username doesn't exist", HttpStatus.NOT_FOUND); // HTTP CODE: 404
+    if (!user) {
+      throw new HttpException("Username is not found.", HttpStatus.NOT_FOUND); // HTTP CODE: 404
     }
-
     if (user.verificationToken !== verificationToken) {
       throw new HttpException("Invalid Token", HttpStatus.BAD_REQUEST);// HTTP CODE: 400
     }
-
     user.isVerified = true;
     await this.userRepository.save(user);
-    return true;
+    return 200;
   }
 
   async checkVerification(username: string): Promise<boolean> { // async checkVerification to see if user isVerified: boolean value true
     const user = await this.userRepository.findOne({ where: { username } });
 
     if (!user) {
-      throw new Error('User not found');
+      throw new HttpException("Username is not found.", HttpStatus.NOT_FOUND);
     }
 
     return user.isVerified;

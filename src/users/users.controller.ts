@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ResponseInterceptor } from 'src/common/response-interceptor';
 
+@UseInterceptors(ResponseInterceptor)
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
@@ -38,6 +40,7 @@ export class UsersController {
     return { message: 'User registered successfully', userId: userDetails.id };
   }
 
+
   @Get('verify-email/:username/:verificationToken')
   async verifyEmail(
     @Param('username') username: string,
@@ -50,7 +53,12 @@ export class UsersController {
   @Get('check-verification/:username')
   async checkVerification(@Param('username') username: string) {
     const isVerified = await this.usersService.checkVerification(username);
-    return { message: isVerified ? 'User is verified' : 'User is not verified' };
+    if (isVerified) {
+      return 'User is verified'
+    }
+    else {
+      return 'User is not verified';
+    }
   }
 }
 
