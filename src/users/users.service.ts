@@ -38,7 +38,6 @@ export class UsersService {
   }
 
   async register(createUserDto: CreateUserDto): Promise<Users> { // register function that creates token, saves user and sends confirmation mail
-    //  const verificationToken = randomBytes(32).toString('hex'); // later change this to bcrypt function
     const verificationToken = await bcrypt.hash(createUserDto.password, 10); // hashing function
     const user = this.userRepository.create({
       ...createUserDto,

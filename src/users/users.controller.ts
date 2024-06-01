@@ -35,7 +35,7 @@ export class UsersController {
   }
 
   @Post('register')
-  async register(@Body() user: CreateUserDto) {
+  async register(@Param('username') username : string, @Param('email') email : string, @Body() user: CreateUserDto) {
     const userDetails = await this.usersService.register(user);
     return { message: 'User registered successfully', userId: userDetails.id };
   }
