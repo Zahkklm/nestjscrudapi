@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -7,6 +7,7 @@ import { Users } from './entities/user.entity';
 import { randomBytes } from 'crypto';
 import { MailService } from 'src/mail/mail.service';
 import * as bcrypt from 'bcrypt';
+import { HttpErrorByCode } from '@nestjs/common/utils/http-error-by-code.util';
 
 @Injectable()
 export class UsersService {
@@ -56,12 +57,12 @@ export class UsersService {
   async verifyEmail(username: string, verificationToken: string): Promise<boolean> { // async verifyEmail service to work when email link is entered
     const user = await this.userRepository.findOne({ where: { username } });
 
-    if (!user) {
-      throw new Error('User not found');
+    if (!user) { 
+      throw new HttpException("Username doesn't exist", HttpStatus.NOT_FOUND); // HTTP CODE: 404
     }
 
     if (user.verificationToken !== verificationToken) {
-      throw new Error('Invalid verification token');
+      throw new HttpException("Invalid Token", HttpStatus.BAD_REQUEST);// HTTP CODE: 400
     }
 
     user.isVerified = true;
