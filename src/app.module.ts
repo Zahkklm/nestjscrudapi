@@ -5,10 +5,12 @@ import { DatabaseModule } from './database/database.module';
 import { EmailVerifierModule } from './email-verifier/email-verifier.module';
 import { EmailVerifierController } from './email-verifier/email-verifier.controller';
 import { EmailVerifierService } from './email-verifier/email-verifier.service';
-import { UsersModule } from './users/users.module';
+import { UserModule } from './users/users.module';
+import { MailModule } from './mail/mail.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [DatabaseModule, EmailVerifierModule, UsersModule],
+  imports: [DatabaseModule, EmailVerifierModule, UserModule, MailModule, ConfigModule.forRoot({isGlobal: true})],
   controllers: [AppController, EmailVerifierController],
   providers: [AppService, EmailVerifierService],
 })

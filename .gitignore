@@ -1,3 +1,7 @@
+#SMTP config
+.env
+process.env
+
 # Database config
 /src/database
 docker-compose.yaml

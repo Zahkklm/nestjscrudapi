@@ -5,7 +5,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
@@ -31,4 +31,27 @@ export class UsersController {
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
   }
+
+  @Post('register')
+  async register(@Body() user: CreateUserDto) {
+    const userDetails = await this.usersService.register(user);
+    return { message: 'User registered successfully', userId: userDetails.id };
+  }
+
+  @Get('verify-email/:username/:verificationToken')
+  async verifyEmail(
+    @Param('username') username: string,
+    @Param('verificationToken') verificationToken: string,
+  ) {
+    await this.usersService.verifyEmail(username, verificationToken);
+    return { message: 'Email verified successfully' };
+  }
+
+  @Get('check-verification/:username')
+  async checkVerification(@Param('username') username: string) {
+    const isVerified = await this.usersService.checkVerification(username);
+    return { message: isVerified ? 'User is verified' : 'User is not verified' };
+  }
 }
+
+
