@@ -35,9 +35,11 @@ Following command is used with _`--save-dev`_ option to make sure testing packag
 
 `npm install --save-dev @nestjs/testing`
 
-Create _.env_ file in the root directory that will consist of SMTP server configurations
+Create _.env_ file in the root directory of project that will consist of Database and SMTP server configurations
 
 ```
+DB_URL=postgresql://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]
+DB_TYPE=postgres
 MAIL_HOST=smtp.gmail.com
 MAIL_USER=senderemail@mail.com
 MAIL_PASSWORD=password
@@ -45,9 +47,14 @@ MAIL_FROM=senderemail@mail.com
 MAIL_PORT=465 or 587
 ```
 
-Create _process.env_ file following format below to store database connection string (or use it to store `key=value` pairs storing same information in a different way).
+DB_URL will consist of connection string in following format according to database username, password, port, databasename and optional parameters:
 
 `postgresql://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]`
+
+Example database connection string:
+
+`postgresql://[ozgurdbhesap[:ozgurdbsifre]@][netloc][:5432][/testdb][?param1=value1&...]`
+
 
 
 Generate migration files from entities by running
