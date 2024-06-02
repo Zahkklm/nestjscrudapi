@@ -120,6 +120,16 @@ Apply migrations
   ]
 }
 ````
+# Testing
+
+There are unit and E2E tests in this project. To run these tests, following testing package is required: 
+```npm install @nestjs/testing```
+
+Run E2E test
+
+``` npm run test:e2e ```
+
+
 # Primary Sources
 - https://docs.nestjs.com/
 - https://medium.com/@saeid/10-essential-practices-for-better-git-commits-and-why-they-matter-3cfc420bf53e

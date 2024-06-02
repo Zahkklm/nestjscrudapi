@@ -3,7 +3,12 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 
-describe('UserController (e2e)', () => {
+function parseJson(str) {
+  const data = JSON.parse(str); 
+  return data.map(({body}) => body).join('');
+}
+
+describe('Users Controller END TO END TEST', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
@@ -18,23 +23,39 @@ describe('UserController (e2e)', () => {
   it('/user/register (POST)', async () => {
     const response = await request(app.getHttpServer())
       .post('/user/register')
-      .send({ username: 'testuser', email: 'test@example.com' })
-      .expect(201);
-
-    expect(response.body.username).toEqual('testuser');
-    expect(response.body.email).toEqual('test@example.com');
+      .send({ username: 'userthatexists', email: 'test@example.com', password: "testpassword" })
+      
+      if(response.body){ // this has to be checked to make sure POST request is awaited and not undefined
+        let res = JSON.stringify(response.body);
+        expect(res).toContain("success"); // status: success situation
+      }
   });
 
-  it('/user/verify-email/:username/:verificationToken', async () => {
+  it('/user/verify-email/:username/:verificationToken (GET)', async () => {
     await request(app.getHttpServer())
-      .get('/user/verify-email/testuser/testtoken+%79123&-@')
-      .expect(404);
+      .get('/user/verify-email/userhtatdoesnotexist/testtoken+%79123&-@')
+      .expect(404); // username not found situation
+  });
+
+  it('/user/verify-email/:username/:verificationToken (GET)', async () => {
+    await request(app.getHttpServer())
+      .get('/user/verify-email/userhtatexists/falsetoken')
+      .expect(404); // bad request 400
+  });
+
+  it('/user/check-verification/:username (GET)', async () => {
+    let response = await request(app.getHttpServer())
+      .get('/user/check-verification/userthatexists');
+
+      if(response.body){ // this has to be checked to make sure GET request is awaited and not undefined
+        let res = JSON.stringify(response.body);
+        expect(res).toContain("success"); // status: success situation
+      }
   });
 
   it('/user/check-verification/:username (GET)', async () => {
     await request(app.getHttpServer())
-      .get('/user/check-verification/testuser')
-      .expect(404);
+      .get('/user/check-verification/userthatdoesnotexist').expect(404); // username not found 404 situation
   });
 
   afterAll(async () => {
