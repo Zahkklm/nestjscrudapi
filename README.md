@@ -1,10 +1,13 @@
-# nestjscrudapi
+
 This is a simple REST API that tries to simulate email verification system of popular backend services.
 
-# Requirements
-npm
+# ChatGPT Log
+https://gist.github.com/Zahkklm/8529d991321784c470d0fad90e4b27a7
 
-Postman (or a similar API testing interface)
+# Requirements
+[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+
+[Postman](https://www.postman.com/downloads/) (or a similar API testing interface)
 
 # Setting Up
 
