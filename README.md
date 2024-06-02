@@ -2,7 +2,9 @@
 This is a simple REST API that tries to simulate email verification system of popular backend services.
 
 # ChatGPT Log
-https://gist.github.com/Zahkklm/8529d991321784c470d0fad90e4b27a7
+[ChatGPT Website](https://chatgpt.com/share/9b4c7fea-9445-453b-9129-f8b1868604f7)
+
+[Github Gist](https://gist.github.com/Zahkklm/8529d991321784c470d0fad90e4b27a7)
 
 # Requirements
 [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
@@ -113,3 +115,9 @@ Imagelink
   ]
 }
 ````
+# Primary Sources
+- https://docs.nestjs.com/
+- https://medium.com/@saeid/10-essential-practices-for-better-git-commits-and-why-they-matter-3cfc420bf53e
+- https://medium.com/nestjs-ninja/authentication-part-3-using-nestjs-and-postgres-database-neon-tech-39306a41b7a0
+- https://medium.com/simform-engineering/nestjs-and-postgresql-a-crud-tutorial-32aa78778752
+- Lots of Stackoverflow 😎
