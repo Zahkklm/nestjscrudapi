@@ -1,3 +1,6 @@
+#locks
+yarn.lock
+
 #SMTP config
 process.env
 
