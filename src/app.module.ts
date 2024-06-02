@@ -8,7 +8,13 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [DatabaseModule, UserModule, MailModule, ConfigModule.forRoot({isGlobal: true}), TypeOrmModule],
+  imports: [
+    DatabaseModule,
+    UserModule,
+    MailModule,
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
