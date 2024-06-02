@@ -23,7 +23,7 @@ Necessary packages for this project are:
 
 Run following commands in terminal to install packages mentioned above.
 
-`npm install @nestjs/typeorm typeorm pg bcrypt`
+`npm install @nestjs/typeorm typeorm@0.3.19 pg bcrypt`
 
 `npm install @nestjs-modules/mailer nodemailer`
 
