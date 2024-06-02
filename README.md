@@ -88,8 +88,6 @@ Apply migrations
 
 ***HTTP endpoint: GET /user/verify-email/{username}/{verificationToken}***
 
-**Result**
-
 ![Capture](https://github.com/Zahkklm/nestjscrudapi/assets/78751009/fffdb78a-3996-450c-b23b-08d90472c1a8)
 
 ````
