@@ -1,12 +1,14 @@
 #locks
 yarn.lock
 
+#config
+/config
+
+#docker
+docker-compose.yaml
+
 #SMTP config
 process.env
-
-# Database config
-/src/database
-docker-compose.yaml
 
 # compiled output
 /dist
