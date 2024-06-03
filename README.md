@@ -47,7 +47,7 @@ MAIL_FROM=senderemail@mail.com
 MAIL_PORT=465 or 587
 ```
 
-DB_URL will consist of connection string in following format according to database username, password, port, databasename and optional parameters:
+DB_URL will consist of connection string in following format according to database username, password, port, database name and optional parameters:
 
 `postgresql://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]`
 
@@ -69,7 +69,7 @@ Apply migrations
 
 `npm run start`
 
-***HTTP endpoint: POST /user/register:***
+***HTTP endpoint: POST /user/register***
 
 **Input**:
 `````
@@ -108,7 +108,7 @@ Apply migrations
 }
 ````
 
-***HTTP endpoint: GET /user/check-verification/{username}:***
+***HTTP endpoint: GET /user/check-verification/{username}***
 
 **Result**
 
