@@ -123,6 +123,7 @@ Apply migrations
 # Testing
 
 There are unit and E2E tests in this project. To run these tests, following testing package is required: 
+
 ```npm install @nestjs/testing```
 
 Run E2E test
